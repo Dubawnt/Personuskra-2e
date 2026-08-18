@@ -1,2 +1,3 @@
-# Adnd2e_Character_Sheet
-WIP character sheet for Adnd2e
+# ᛒᛁᚱᛋᚬᚾᚢᛋᚴᚱᚬ
+A WIP character sheet program for Adnd2e written in Odin. 
+Will use Raylib and Clay for UI and Layouts.
