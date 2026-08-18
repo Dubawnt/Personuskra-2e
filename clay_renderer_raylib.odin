@@ -1,4 +1,4 @@
-package Character_Sheet
+package Personuskra
 
 import clay "clay-odin"
 import "base:runtime"

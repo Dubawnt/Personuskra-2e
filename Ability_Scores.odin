@@ -1,4 +1,4 @@
-package Character_Sheet
+package Personuskra
 //imports
 import "core:fmt"
 import "core:strconv"

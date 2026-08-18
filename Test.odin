@@ -1,4 +1,4 @@
-package Character_Sheet
+package Personuskra
 
 import "core:testing"
 
