@@ -158,7 +158,7 @@ Constitution_Table := [26]Con_Bonuses {
 	9  = {0, 0, 65, 70, 0, 0},
 	10 = {0, 0, 70, 75, 0, 0},
 	11 = {0, 0, 75, 80, 0, 0},
-	12 = {0, 0, 70, 75, 0, 0},
+	12 = {0, 0, 80, 85, 0, 0},
 	13 = {0, 0, 85, 90, 0, 0},
 	14 = {0, 0, 88, 92, 0, 0},
 	15 = {1, 1, 90, 94, 0, 0},
@@ -320,7 +320,7 @@ Get_Bonus_Spells :: proc(score: string) -> (bonuses: Bonus_Spells, valid: bool) 
 }
 
 Wisdom_Spell_Immunities := [26][]string{
-	1 ..= 18 = {},
+	0 ..= 18 = {},
 	19       = {"Cause Fear", "Charm Person", "Command", "Friends", "Hypnotism"},
 	20       = {"Cause Fear", "Charm Person", "Command", "Friends", "Hypnotism",
 	            "Forget", "Hold Person", "Ray of Enfeeblement", "Scare"},
@@ -357,3 +357,44 @@ Get_Wisdom_Immunities :: proc(wis: string) -> []string {
 }
 
 //Charisma Tables
+
+Cha_Bonuses :: struct {
+	Max_Henchman: i8,
+	Loyalty_Base: i8,
+	React_Adj: i8,
+}
+
+Charisma_Table := [26]Cha_Bonuses {
+	1 = {0, -8, -7},
+	2 = {1, -7, -6},
+	3 = {1, -6, -5},
+	4 = {1, -5, -4},
+	5 = {2, -4, -3},
+	6 = {2, -3, -2},
+	7 = {3, -2, -1},
+	8 = {3, -1, 0},
+	9 ..= 11 = {4, 0, 0},
+	12 = {5, 0, 0},
+	13 = {5, 0, 1},
+	14 = {6, 1, 2},
+	15 = {7, 3, 3},
+	16 = {8, 4, 5},
+	17 = {10, 6, 6},
+	18 = {15, 8, 7},
+	19 = {20, 10, 8},
+	20 = {25, 12, 9},
+	21 = {30, 14, 10},
+	22 = {35, 16, 11},
+	23 = {40, 18, 12},
+	24 = {45, 20, 13},
+	25 = {50, 20, 14},
+}
+
+Get_Cha :: proc(score: string) -> (bonuses: Cha_Bonuses, valid: bool) {
+	charisma, ok := strconv.parse_int(score)
+	if ok && charisma > 0 && charisma < 26 {
+		return Charisma_Table[charisma], true
+	} else {
+		return {}, false
+	}
+}
