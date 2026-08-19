@@ -1,8 +1,6 @@
 package Personuskra
 //imports
-import "core:fmt"
 import "core:strconv"
-import "core:strings"
 
 //Class Enumerations
 
@@ -114,6 +112,66 @@ Get_Saves :: proc(level: string, class: Classes) -> (Saves: Saving_Throws, valid
 			case .Rogue: return Rogue_Saves[lvl], true
 			case .Wizard: return Wizard_Saves[lvl], true
 			case .Psionicist: return Psionicist_Saves[lvl], true
+			}
+		}
+	}
+	return {}, false
+}
+
+//Thac0
+
+Warrior_Thac0 := [31]i8 {
+    1 = 20, 2 = 19, 3 = 18, 4 = 17, 5 = 16, 6 = 15, 7 = 14, 8 = 13, 9 = 12, 10 = 11,
+    11 = 10, 12 = 9, 13 = 8, 14 = 7, 15 = 6, 16 = 5, 17 = 4, 18 = 3, 19 = 2, 20..= 30 = 1,
+}
+
+Priest_Thac0 := [31]i8 {
+	1 ..= 3   = 20,
+    4 ..= 6   = 18,
+    7 ..= 9   = 16,
+    10 ..= 12 = 14,
+    13 ..= 15 = 12,
+    16 ..= 18 = 10,
+    19 ..= 30 = 8,
+}
+
+Rogue_Psi_Thac0 := [31]i8 {
+	1 ..= 2   = 20,
+    3 ..= 4   = 19,
+    5 ..= 6   = 18,
+    7 ..= 8   = 17,
+    9 ..= 10  = 16,
+    11 ..= 12 = 15,
+    13 ..= 14 = 14,
+    15 ..= 16 = 13,
+    17 ..= 18 = 12,
+    19 ..= 30 = 11,
+}
+
+Wizard_THAC0 := [31]i8 {
+    1 ..= 3   = 20,
+    4 ..= 6   = 19,
+    7 ..= 9   = 18,
+    10 ..= 12 = 17,
+    13 ..= 15 = 16,
+    16 ..= 18 = 15,
+    19 ..= 30 = 14,
+}
+
+get_Thac0 :: proc(level: string, class: Classes) -> (Thac0: i8, valid: bool) {
+	lvl, ok := strconv.parse_int(level)
+	if ok && lvl>=0 && lvl<31 {
+		if lvl == 0 {
+			return 20, true
+		}
+		else {
+			group := Get_Class_Group(class)
+			switch group {
+			case .Warrior: return Warrior_Thac0[lvl] , true
+			case .Priest: return Priest_Thac0[lvl], true
+			case .Rogue: return Rogue_Psi_Thac0[lvl], true
+			case .Wizard: return Wizard_THAC0[lvl], true
+			case .Psionicist: return Rogue_Psi_Thac0[lvl], true
 			}
 		}
 	}
